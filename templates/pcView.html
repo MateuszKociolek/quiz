@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC view</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.3/socket.io.js" integrity="sha512-jDUVpk2awjMnyrpY2xZguylQVRDeS9kRBImn0M3NJaZzowzUpKr6i62ynwPG0vNS1+NsTk4ji+iznbc5m0ZCKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <h1>Pc View</h1>
+    <button class="startQuizButton">Start quiz</button>
+</body>
+<script>
+    var socket = io.connect("http://" + document.domain + ":" + location.port);
+
+    document.querySelector(".startQuizButton").addEventListener('click', ()=>{
+        console.log("Start Quiz!")
+        socket.emit("startQuiz")
+    })
+
+</script>
+</html>
