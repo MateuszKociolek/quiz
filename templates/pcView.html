@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.3/socket.io.js" integrity="sha512-jDUVpk2awjMnyrpY2xZguylQVRDeS9kRBImn0M3NJaZzowzUpKr6i62ynwPG0vNS1+NsTk4ji+iznbc5m0ZCKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
+    <a href="/">Go back!</a>
     <h1>Pc View</h1>
     <button class="startQuizButton">Start quiz</button>
     <p class="quest">TEST TEST</p>
@@ -29,16 +30,16 @@
 
     socket.on('sendQuestions', function(data){
         var q = document.querySelector(".quest");
-        var questionIndex = 1;
+        var questionIndex = 0;
 
         if(q.classList.contains("hiddenElement")) {
             q.classList.remove("hiddenElement");
         }
 
-        q.innerText = data[0].question;
         var questionInterval = setInterval(() => {
             if(questionIndex != data.length){
                 q.innerText = data[questionIndex].question;
+                socket.emit("nextQuestion", {"id": questionIndex});
                 questionIndex++;
             }
             else{

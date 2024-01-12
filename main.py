@@ -13,7 +13,9 @@ def index():
 
 @app.route('/phone')
 def renderPhone():
-    return render_template('phoneView.html', id=generateUserId())
+    userId = generateUserId()
+    print(f"User (id: {userId}) has joined!")
+    return render_template('phoneView.html', id=userId)
 
 @app.route('/pcView')
 def renderPc():
@@ -29,6 +31,10 @@ def sendQuestion():
 @socketio.on('answer')
 def getAnswer(data):
     print(f"Answer is: {data['answer']}")
+
+@socketio.on('nextQuestion')
+def nextQuestion(data):
+    socketio.emit('nextQuestion', {"questionId" : data["id"], "base": getQuestionsJson()})
 
 def getQuestionsJson():
     with open("questions.json", "r") as js:

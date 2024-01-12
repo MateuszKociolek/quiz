@@ -7,10 +7,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.3/socket.io.js" integrity="sha512-jDUVpk2awjMnyrpY2xZguylQVRDeS9kRBImn0M3NJaZzowzUpKr6i62ynwPG0vNS1+NsTk4ji+iznbc5m0ZCKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-    <button class="btn">A</button>
-    <button class="btn">B</button>
-    <button class="btn">C</button>
-    <button class="btn">D</button>
+    <a href="/">Go back!</a>
+    <div class="buttons">
+        <button class="btn0">A</button>
+        <button class="btn1">B</button>
+        <button class="btn2">C</button>
+        <button class="btn3">D</button>
+    </div>
 </body>
 <script>
     var socket = io.connect("http://" + document.domain + ":" + location.port);
@@ -18,19 +21,21 @@
     var uid = "{{ id }}";
     localStorage.setItem('uid', uid);
 
-    var buttons = document.querySelectorAll('.btn');
+    socket.on('nextQuestion', function(data){
+        for (let i = 0; i < 4; i++) {
+            // console.log(data["base"][data["questionId"]]["answers"][i]);    
+            document.querySelector(`.btn${i}`).innerText = data["base"][data["questionId"]]["answers"][i]
 
-    buttons.forEach(function(button){
-        button.addEventListener('click', (e)=>{
-            socket.emit('answer', {'answer': e.target.innerText});
-        });
+            document.querySelector(`.btn${i}`).addEventListener('click', (e)=>{
+                socket.emit('answer', {'answer': e.target.innerText});
+            });
+            
+        }
+        
+        console.log(data["base"][data["questionId"]]);
+
     });
 
-    socket.on("sendQuestions", function(data){
-        data.forEach(e=>{
-            console.log(data.answers);
-        });
-    })
 
 </script>
 </html>
