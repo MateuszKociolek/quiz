@@ -24,6 +24,7 @@ def sendQuestion():
     qs = getQuestionsJson()
     for i in range(len(qs)):
         print(qs[i]['question'])
+    socketio.emit("sendQuestions", qs)
 
 @socketio.on('answer')
 def getAnswer(data):

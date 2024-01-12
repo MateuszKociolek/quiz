@@ -26,5 +26,11 @@
         });
     });
 
+    socket.on("sendQuestions", function(data){
+        data.forEach(e=>{
+            console.log(data.answers);
+        });
+    })
+
 </script>
 </html>

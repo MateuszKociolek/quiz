@@ -9,14 +9,46 @@
 <body>
     <h1>Pc View</h1>
     <button class="startQuizButton">Start quiz</button>
+    <p class="quest">TEST TEST</p>
 </body>
+<style>
+    .hiddenElement{
+        display: none;
+    }
+</style>
 <script>
     var socket = io.connect("http://" + document.domain + ":" + location.port);
+    var questionButton = document.querySelector(".startQuizButton");
 
-    document.querySelector(".startQuizButton").addEventListener('click', ()=>{
-        console.log("Start Quiz!")
-        socket.emit("startQuiz")
+    questionButton.addEventListener('click', ()=>{
+        console.log("Start Quiz!");
+        socket.emit("startQuiz");
+
+        questionButton.classList.add("hiddenElement");
     })
+
+    socket.on('sendQuestions', function(data){
+        var q = document.querySelector(".quest");
+        var questionIndex = 1;
+
+        if(q.classList.contains("hiddenElement")) {
+            q.classList.remove("hiddenElement");
+        }
+
+        q.innerText = data[0].question;
+        var questionInterval = setInterval(() => {
+            if(questionIndex != data.length){
+                q.innerText = data[questionIndex].question;
+                questionIndex++;
+            }
+            else{
+                clearInterval(questionInterval);
+                q.classList.add("hiddenElement");
+                questionButton.classList.remove("hiddenElement");
+            }
+        }, 3000);
+
+    });
 
 </script>
 </html>
