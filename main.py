@@ -23,10 +23,7 @@ def renderPc():
 
 @socketio.on("startQuiz")
 def sendQuestion():
-    qs = getQuestionsJson()
-    for i in range(len(qs)):
-        print(qs[i]['question'])
-    socketio.emit("sendQuestions", qs)
+    socketio.emit("sendQuestions", getQuestionsJson())
 
 @socketio.on('answer')
 def getAnswer(data):
@@ -45,4 +42,4 @@ def generateUserId():
     return str(uuid.uuid4())
 
 if __name__ == "__main__":
-    socketio.run(app, debug=True)
+    socketio.run(app,host="0.0.0.0", port=5000 , debug=True)
