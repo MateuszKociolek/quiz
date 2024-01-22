@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
-import json
+from tools.returnJsonFile import getQuestionsJson()
 import uuid
 
 
@@ -13,7 +13,7 @@ def index():
 
 @app.route('/phone')
 def renderPhone():
-    userId = generateUserId()
+    userId = str(uuid.uuid4())
     print(f"User (id: {userId}) has joined!")
     return render_template('phoneView.html', id=userId)
 
@@ -32,14 +32,6 @@ def getAnswer(data):
 @socketio.on('nextQuestion')
 def nextQuestion(data):
     socketio.emit('nextQuestion', {"questionId" : data["id"], "base": getQuestionsJson()})
-
-def getQuestionsJson():
-    with open("questions.json", "r") as js:
-        jsonToReturn = json.load(js)
-    return jsonToReturn
-
-def generateUserId():
-    return str(uuid.uuid4())
 
 if __name__ == "__main__":
     socketio.run(app,host="0.0.0.0", port=5000 , debug=True)
