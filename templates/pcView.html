@@ -44,6 +44,7 @@
     nextQuestionButton.addEventListener("click", ()=>{
         if (questionIndex < questionList.length) {
             displayQuestion(questionList[questionIndex]["question"]);
+            socket.emit("nextQuestion", {"id": questionIndex});
             questionIndex++;
         }else{
             displayQuestion("Koniec Quizu!");
@@ -56,10 +57,9 @@
         questionLabel.classList.remove("hiddenElement");
         questionLabel.innerText = currentQuestion;
 
-        setTimeout(()=>{
-            questionLabel.classList.add("hiddenElement");;
-        },5000);
-
+        // setTimeout(()=>{
+        //     questionLabel.classList.add("hiddenElement");;
+        // },5000);
     }
 
 </script>
