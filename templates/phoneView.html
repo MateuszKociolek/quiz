@@ -7,10 +7,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.3/socket.io.js"
         integrity="sha512-jDUVpk2awjMnyrpY2xZguylQVRDeS9kRBImn0M3NJaZzowzUpKr6i62ynwPG0vNS1+NsTk4ji+iznbc5m0ZCKQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="/static/css/phoneView.css">
 </head>
 
 <body>
-    <a href="/">Go back!</a>
+    <a href="/" style="color: white; text-decoration: none; margin: 20px;">Go back!</a>
     <div class="buttons">
         <button class="btn0">A</button>
         <button class="btn1">B</button>
@@ -21,27 +22,7 @@
         </div>
     </div>
 </body>
-<style>
-    :root {
-        --button-size: 70px;
-    }
 
-    .correct {
-        background-color: green;
-        border: black solid 1px;
-        color: white;
-    }
-
-    .incorrect {
-        background-color: red;
-        color: white;
-    }
-
-    .buttons button {
-        width: var(--button-size);
-        height: var(--button-size);
-    }
-</style>
 <script>
     var socket = io.connect("http://" + document.domain + ":" + location.port);
     let buttonsDiv = document.querySelector(".buttons");
