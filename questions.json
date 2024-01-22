@@ -1,4 +1,7 @@
 [
-    {"id" : 1, "question": "Pytanie 1", "answers": ["nie", "nie", "tak", "nie"], "correct" : "tak" },
-    {"id" : 2, "question": "Pytanie 2", "answers": ["a", "b", "c", "d"], "correct" : "a" }
+    {"id" : 1, "question": "Jaka jest stolica Francji?", "answers": ["Rzym", "Madryt", "Paryż", "Berlin"], "correct" : "Paryż" },
+    {"id" : 2, "question": "Ile wynosi pierwiastek z 64?", "answers": ["6", "7", "8", "9"], "correct" : "8" },
+    {"id" : 3, "question": "Która planeta jest największa w Układzie Słonecznym?", "answers": ["Mars", "Jowisz", "Ziemia", "Saturn"], "correct" : "Jowisz" },
+    {"id" : 4, "question": "Który kolor jest skojarzony z ciepłem?", "answers": ["Niebieski", "Zielony", "Czerwony", "Żółty"], "correct" : "Czerwony" },
+    {"id" : 5, "question": "Kto napisał 'Romeo i Julia'?", "answers": ["William Shakespeare", "Jane Austen", "Charles Dickens", "Leo Tolstoy"], "correct" : "William Shakespeare" }
 ]
