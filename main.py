@@ -3,22 +3,6 @@ from flask_socketio import SocketIO
 from tools.returnJsonFile import getQuestionsJson
 import uuid
 
-import json
-import os
-
-def getQuestionsJson():
-    json_path = 'questions.json'
-
-    try:
-        with open(json_path, 'r') as file:
-            questions_data = json.load(file)
-    except FileNotFoundError:
-        questions_data = {}
-        with open(json_path, 'w') as file:
-            json.dump(questions_data, file)
-
-    return questions_data
-
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -29,16 +13,10 @@ def index():
 
 @app.route('/phone')
 def renderPhone():
-    user_id = str(uuid.uuid4())
-    print(f"User (id: {user_id}) has joined!")
+    userId = str(uuid.uuid4())
+    print(f"User (id: {userId}) has joined!")
+    return render_template('phoneView.html', id=userId)
 
-    # Dodanie użytkownika do pliku JSON
-    questions_data = getQuestionsJson()
-    questions_data[user_id] = {"questionId": 0, "correct_answers": 0}
-    with open('questions.json', 'w') as file:
-        json.dump(questions_data, file)
-
-    return render_template('phoneView.html', id=user_id)
 @app.route('/pcView')
 def renderPc():
     return render_template('pcView.html')
