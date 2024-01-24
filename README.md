@@ -1,1 +1,1 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+Quiz made by Matuesz Kociołek, Szymon Kolarz and Mateusz Janoszek for shool project <3

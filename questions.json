@@ -1,7 +1,17 @@
 [
-    {"id" : 1, "question": "Jaka jest stolica Francji?", "answers": ["Rzym", "Madryt", "Paryz", "Berlin"], "correct" : "Paryz" },
+    {"id" : 1, "question": "Jaka jest stolica Francji?", "answers": ["Rzym", "Madryt", "Paryż", "Berlin"], "correct" : "Paryż" },
     {"id" : 2, "question": "Ile wynosi pierwiastek z 64?", "answers": ["6", "7", "8", "9"], "correct" : "8" },
     {"id" : 3, "question": "Która planeta jest największa w Układzie Słonecznym?", "answers": ["Mars", "Jowisz", "Ziemia", "Saturn"], "correct" : "Jowisz" },
     {"id" : 4, "question": "Który kolor jest skojarzony z ciepłem?", "answers": ["Niebieski", "Zielony", "Czerwony", "Żółty"], "correct" : "Czerwony" },
-    {"id" : 5, "question": "Kto napisał 'Romeo i Julia'?", "answers": ["William Shakespeare", "Jane Austen", "Charles Dickens", "Leo Tolstoy"], "correct" : "William Shakespeare" }
+    {"id" : 5, "question": "Kto napisał 'Romeo i Julia'?", "answers": ["William Shakespeare", "Jane Austen", "Charles Dickens", "Leo Tolstoy"], "correct" : "William Shakespeare" },
+    {"id" : 6, "question": "Kto chodzi bez spodni po PTI?", "answers": ["Robert Cwiertnia", "Mateusz Kocipek", "Szymon Kolarz", "Mateusz Janoszek"], "correct" : "Szymon Kolarz" },
+    {"id" : 7, "question": "Jaka marka samochodów powinna zniknąć z powierzchni Ziemi?", "answers": ["Volkswagen", "BMW", "Audi", "Tesla"], "correct" : "Tesla" },
+    {"id" : 8, "question": "Który pierwiastek chemiczny oznaczony jest symbolem 'O'?", "answers": ["Tlen", "Wodór", "Chlor", "Wapń"], "correct" : "Tlen" },
+    {"id" : 9, "question": "Który ocean jest największy pod względem powierzchni?", "answers": ["Spokojny", "Atlantycki", "Indyjski", "Morze Kaspijskie"], "correct" : "Spokojny" },
+    {"id" : 10, "question": "Jaki jest najlepszy model samochodu, który powstał?", "answers": ["Punto", "Clio", "Scirocco", "Cytrynka Cwiary"], "correct" : "Scirocco" },
+    {"id" : 11, "question": "Jaka jest najwyższa ranga w CS:GO?", "answers": ["LEM", "DMG", "Supreme", "Global-Elite"], "correct" : "Global-Elite" },
+    {"id" : 12, "question": "Jaki jest najwyższy silnik V w samochodach?", "answers": ["V10", "V14", "V8", "V12"], "correct" : "V12" },
+    {"id" : 13, "question": "Jak nazywa się największa rzeka w Afryce?", "answers": ["Nil", "Kongo", "Niger", "Wisła"], "correct" : "Nil" },
+    {"id" : 14, "question": "Jaki jest najbardziej charakterystyczny samochód z serii 'Szybcy i Wściekli'?", "answers": ["Toyota Supra", "Mitsubishi Lancer Evo", "Dodge Charger", "Nissan Skyline"], "correct" : "Nissan Skyline" },
+    {"id" : 15, "question": "Jakie problemy ma Szymon Kolarz aka SK Crip", "answers": ["Dwubiegunowość", "Pants low", "Każdy mnie kocha", "Wszystkie odpowiedzi są poprawne"], "correct" : "Wszystkie odpowiedzi są poprawne" }
 ]
