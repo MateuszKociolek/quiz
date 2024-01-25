@@ -26,18 +26,17 @@
     var socket = io.connect("http://" + document.domain + ":" + location.port);
     let buttonsDiv = document.querySelector(".buttons");
     var globalQuestionsData;
-
-    var uid = "{{ id }}";
-    localStorage.setItem('uid', uid); // każdy urzytkownik dostaje unikalne id generwane przez serwerb
+    var answered = false; // Dodaj zmienną do śledzenia, czy użytkownik już odpowiedział
 
     //Po otrzymaniu od widoku komputera nowego pytania wykonuje się ta funckaj
     socket.on('nextQuestion', function (data) {
         globalQuestionsData = data;
+        answered = false; // Po otrzymaniu nowego pytania odblokuj możliwość klikania
         for (let i = 0; i < 4; i++) {
             let actualButton = document.querySelector(`.btn${i}`);
             actualButton.classList.remove(actualButton.classList.contains("correct") ? "correct" : "incorrect");
 
-            actualButton.innerText = data["base"][data["questionId"]]["answers"][i] //Ta pętla przechodzi przez pytania które dostajemy z bazy
+            actualButton.innerText = data["base"][data["questionId"]]["answers"][i];
         }
     });
 
@@ -46,13 +45,16 @@
 
         buttons.forEach(function(btn) {
             btn.addEventListener('click', (e) => {
-                // tutaj będzie pokazywało się czy zaznaczyliśmy dobrą odpowiedź
-                if (e.target.innerText == globalQuestionsData["base"][globalQuestionsData["questionId"]]["correct"]) {
-                    e.target.classList.add("correct");
-                } else {
-                    e.target.classList.add("incorrect");
+                if (!answered) { // Sprawdź, czy użytkownik jeszcze nie odpowiedział
+                    // tutaj będzie pokazywało się czy zaznaczyliśmy dobrą odpowiedź
+                    if (e.target.innerText == globalQuestionsData["base"][globalQuestionsData["questionId"]]["correct"]) {
+                        e.target.classList.add("correct");
+                    } else {
+                        e.target.classList.add("incorrect");
+                    }
+                    socket.emit('answer', { 'answer': e.target.innerText });
+                    answered = true; // Ustaw zmienną na true, aby zablokować możliwość klikania innych przycisków
                 }
-                socket.emit('answer', { 'answer': e.target.innerText }); // wysyłanie wybranej odpowiedzi do serwera
             });
         });
     }
