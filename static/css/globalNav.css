@@ -1,0 +1,32 @@
+.nav{
+    background-color: #494949;
+    margin: none;
+    width: 100%;
+    height: 45px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.nav a{
+    width: 75px;
+    height: 30px;
+    margin-left: 15px;
+    border: 1.5px white solid;
+    border-radius: 5px;
+    color: #FBFFF4;
+    background-color: #4285f4;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .nav a {
+        width: 29%; 
+        height: 40px;
+        margin: 5px 0;
+    }
+}
+
