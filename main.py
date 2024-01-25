@@ -27,7 +27,7 @@ def sendQuestion():
 
 @socketio.on('answer')
 def getAnswer(data):
-    print(f"Answer is: {data['answer']}")
+    print(f"User {data['userId']} answered: {data['answer']}")
 
 @socketio.on('nextQuestion')
 def nextQuestion(data):

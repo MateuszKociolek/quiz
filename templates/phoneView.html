@@ -31,6 +31,8 @@
     var globalQuestionsData;
     var answered = false; // Dodaj zmienną do śledzenia, czy użytkownik już odpowiedział
 
+    localStorage.setItem("id", "{{ id }}")
+
     //Po otrzymaniu od widoku komputera nowego pytania wykonuje się ta funckaj
     socket.on('nextQuestion', function (data) {
         globalQuestionsData = data;
@@ -55,7 +57,7 @@
                     } else {
                         e.target.classList.add("incorrect");
                     }
-                    socket.emit('answer', { 'answer': e.target.innerText });
+                    socket.emit('answer', { 'answer': e.target.innerText , 'userId': localStorage.getItem("id")});
                     answered = true; // Ustaw zmienną na true, aby zablokować możliwość klikania innych przycisków
                 }
             });
