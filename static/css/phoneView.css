@@ -21,9 +21,64 @@ a {
 
 button {
     width: 80vw; /* 80% szerokości widoku */
-    height: 80px;
+    height: 95px;
     font-size: 20px;
     margin-bottom: 10px;
+}
+
+.hiddenElements{
+    visibility: hidden;
+    height: 0px;
+}
+
+.setUsername{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.setUsername *{
+    margin: 7px;
+}
+
+.setUsername button{
+    width: 110px;
+    height: 51px;
+    border-radius: 5px;
+    color: #FBFFF4;
+    background-color: #4285f4;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+}
+
+.setUsername input[type="text"]{
+    width: 55%;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: 4px;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    padding: 6px 12px;
+}
+
+.setUsername input[type="text"]:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+
+.setUsername h3{
+    color: rgb(252, 254, 236);
 }
 
 .checkAnswer {

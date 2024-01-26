@@ -10,12 +10,16 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/phoneView.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/globalNav.css') }}">
 </head>
-
 <body>
     <div class="nav">
         <a href="/">Go back!</a>
     </div>
-    <div class="buttons">
+    <div class="setUsername">
+        <h3>Enter Nickname</h3>
+        <input class="userName" type="text" maxlength="20">
+        <button class="usernameSubmit">Submit</button>
+    </div>
+    <div class="buttons hiddenElements">
         <button class="btn0">A</button>
         <button class="btn1">B</button>
         <button class="btn2">C</button>
@@ -28,10 +32,20 @@
 <script>
     var socket = io.connect("http://" + document.domain + ":" + location.port);
     let buttonsDiv = document.querySelector(".buttons");
+    var myAnswer = false;
     var globalQuestionsData;
     var answered = false; // Dodaj zmienną do śledzenia, czy użytkownik już odpowiedział
+    
 
     localStorage.setItem("id", "{{ id }}")
+
+    document.querySelector(".usernameSubmit").addEventListener('click', ()=>{
+        let myUsername = document.querySelector(".userName").value;
+        buttonsDiv.classList.remove("hiddenElements");
+        document.querySelector(".setUsername").classList.add("hiddenElements");
+        socket.emit("setUsername", {"username": myUsername, "id": localStorage.getItem("id")});
+        myUsername = "";
+    });
 
     //Po otrzymaniu od widoku komputera nowego pytania wykonuje się ta funckaj
     socket.on('nextQuestion', function (data) {
@@ -54,10 +68,12 @@
                     // tutaj będzie pokazywało się czy zaznaczyliśmy dobrą odpowiedź
                     if (e.target.innerText == globalQuestionsData["base"][globalQuestionsData["questionId"]]["correct"]) {
                         e.target.classList.add("correct");
+                        myAnswer = true
                     } else {
                         e.target.classList.add("incorrect");
+                        myAnswer = false
                     }
-                    socket.emit('answer', { 'answer': e.target.innerText , 'userId': localStorage.getItem("id")});
+                    socket.emit('answer', { 'answer': myAnswer , 'userId': localStorage.getItem("id")});
                     answered = true; // Ustaw zmienną na true, aby zablokować możliwość klikania innych przycisków
                 }
             });
