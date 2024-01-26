@@ -35,3 +35,9 @@ body {
     background-color: #174692;
     /* border: 2px rgb(150, 150, 150) solid; */
 }
+
+.leaderBoard p{
+    font-family: 'Notot Sans', sans-serif;
+    font-size: 25px;
+    color: white;
+}
