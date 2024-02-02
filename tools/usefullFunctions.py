@@ -14,3 +14,15 @@ def deleteUser(userId, points):
         del points[userId]
         return points
     print("No user in file")
+
+# Funkcja sortująca na podstawie punktów
+def sort_by_points(user):
+    return user[1]["points"]
+
+def sortJson(json_data):
+    # Posortuj dane na podstawie ilości punktów
+    sorted_data = sorted(json_data.items(), key=sort_by_points, reverse=True)
+
+    # Wynik
+    return {k: v for k, v in sorted_data}
+    

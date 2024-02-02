@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="pl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PC view</title>
+    <title>Quiz App</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.3/socket.io.js"
         integrity="sha512-jDUVpk2awjMnyrpY2xZguylQVRDeS9kRBImn0M3NJaZzowzUpKr6i62ynwPG0vNS1+NsTk4ji+iznbc5m0ZCKQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/stylePc.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/globalNav.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/stylePc.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/globalNav.css') }}">
 </head>
 
 <body>
@@ -17,9 +18,12 @@
     </div>
     <div class="main">
         <h1>Quiz Host</h1>
-        <button class="startQuizButton">Start quiz</button>
+        <button class="startQuizButton">Start Quiz</button>
         <button class="nextQuestionButton hiddenElement">Next Question</button>
+        <button class="restartButton hiddenElement">Restart Quiz</button>
         <p class="quest hiddenElement" style="font-size: xx-large;">LET'S GO</p>
+        <div class="leaderBoard">
+        </div>
     </div>
 </body>
 <style>
@@ -42,29 +46,44 @@
         nextQuestionButton.classList.remove("hiddenElement");
     })
 
-    socket.on("sendQuestions", function (data){
+    socket.on("sendQuestions", function (data) {
         questionList = data;
     });
 
-    nextQuestionButton.addEventListener("click", ()=>{
-        if (questionIndex < questionList.length) {
-            displayQuestion(questionList[questionIndex]["question"]);
-            socket.emit("nextQuestion", {"id": questionIndex});
-            questionIndex++;
-        }else{
-            displayQuestion("Koniec Quizu!");
+    function generateUserScore(username, points) {
+        var leadBoard = document.querySelector(".leaderBoard");
+        var text = document.createElement('p');
+        text.innerText = `${username} : ${points} pts.`;
+        leadBoard.appendChild(text);
+    }
+
+    socket.on("end", (e) => {
+        nextQuestionButton.classList.add("hiddenElement");
+        
+        for (const key in e) {
+            if (Object.hasOwnProperty.call(e, key)) {
+                var element = e[key];
+                generateUserScore(element["username"], element["points"])
+            }
         }
     });
 
-    function displayQuestion(currentQuestion){
+    nextQuestionButton.addEventListener("click", () => {
+        if (questionIndex < questionList.length) {
+            displayQuestion(questionList[questionIndex]["question"]);
+            socket.emit("nextQuestion", { "id": questionIndex });
+            questionIndex++;
+        } else {
+            displayQuestion("Koniec Quizu!");
+            socket.emit("end")
+        }
+    });
+
+    function displayQuestion(currentQuestion) {
         let questionLabel = document.querySelector(".quest");
 
         questionLabel.classList.remove("hiddenElement");
         questionLabel.innerText = currentQuestion;
-
-        // setTimeout(()=>{
-        //     questionLabel.classList.add("hiddenElement");;
-        // },5000);
     }
 
 </script>

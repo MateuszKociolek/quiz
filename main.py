@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
-from tools.returnJsonFile import *
+from tools.usefullFunctions import *
 import uuid
 
 app = Flask(__name__)
@@ -37,7 +37,7 @@ def sendQuestion():
 @socketio.on("setUsername")
 def setUsername(data):
     playersPoints[data["id"]]["username"] = data["username"]
-    printPoints(playersPoints)
+    # printPoints(playersPoints)
 
 @socketio.on("exitUser")
 def exitUser(data):
@@ -49,17 +49,22 @@ def exitUser(data):
 
 @socketio.on('answer')
 def getAnswer(data):
-    print(f"User {data['userId']} answered: {data['answer']}")
+    # print(f"User {data['userId']} answered: {data['answer']}")
     if data['answer']:
         if data['userId'] in playersPoints:
             playersPoints[data['userId']]["points"] += 100
     print(playersPoints)
 
 
+@socketio.on("end")
+def endOfQuiz():
+    socketio.emit("end", sortJson(playersPoints))
+
+
 @socketio.on('nextQuestion')
 def nextQuestion(data):
     socketio.emit('nextQuestion', {"questionId" : data["id"], "base": getQuestionsJson()})
-    printPoints(playersPoints)
+    # printPoints(playersPoints)
 
 
 if __name__ == "__main__":
