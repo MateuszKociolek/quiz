@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="nav">
-        <a href="/">Go back!</a>
+        <a href="/" class="exitButton">Go back!</a>
     </div>
     <div class="setUsername">
         <h3>Enter Nickname</h3>
@@ -45,6 +45,10 @@
         document.querySelector(".setUsername").classList.add("hiddenElements");
         socket.emit("setUsername", {"username": myUsername, "id": localStorage.getItem("id")});
         myUsername = "";
+    });
+
+    document.querySelector(".exitButton").addEventListener('click', ()=>{
+        socket.emit("exitUser", {"id": localStorage.getItem("id")});
     });
 
     //Po otrzymaniu od widoku komputera nowego pytania wykonuje się ta funckaj

@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
-from tools.returnJsonFile import getQuestionsJson, printPoints
+from tools.returnJsonFile import *
 import uuid
 
 app = Flask(__name__)
@@ -30,6 +30,7 @@ def renderPc():
 
 @socketio.on("startQuiz")
 def sendQuestion():
+    global playersPoints
     playersPoints = {}
     socketio.emit("sendQuestions", getQuestionsJson())
 
@@ -38,6 +39,13 @@ def setUsername(data):
     playersPoints[data["id"]]["username"] = data["username"]
     printPoints(playersPoints)
 
+@socketio.on("exitUser")
+def exitUser(data):
+    global playersPoints
+    if(data["id"]):
+        playersPoints = deleteUser(data["id"], playersPoints)
+    print("Player Points: ", playersPoints)
+
 
 @socketio.on('answer')
 def getAnswer(data):
@@ -45,12 +53,14 @@ def getAnswer(data):
     if data['answer']:
         if data['userId'] in playersPoints:
             playersPoints[data['userId']]["points"] += 100
+    print(playersPoints)
 
 
 @socketio.on('nextQuestion')
 def nextQuestion(data):
     socketio.emit('nextQuestion', {"questionId" : data["id"], "base": getQuestionsJson()})
     printPoints(playersPoints)
+
 
 if __name__ == "__main__":
     socketio.run(app,host="0.0.0.0", port=5000 , debug=True)

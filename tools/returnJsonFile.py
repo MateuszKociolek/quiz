@@ -8,3 +8,9 @@ def getQuestionsJson():
 def printPoints(pointsList):
     for i in pointsList:
         print(pointsList[i]["username"], pointsList[i]["points"])
+
+def deleteUser(userId, points):
+    if userId in points:
+        del points[userId]
+        return points
+    print("No user in file")
