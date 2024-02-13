@@ -60,6 +60,10 @@ def getAnswer(data):
 def endOfQuiz():
     socketio.emit("end", sortJson(playersPoints))
 
+@socketio.on("endTime")
+def endTime():
+    socketio.emit("endTime")
+
 
 @socketio.on('nextQuestion')
 def nextQuestion(data):

@@ -19,7 +19,7 @@
         <input class="userName" type="text" maxlength="20">
         <button class="usernameSubmit">Submit</button>
     </div>
-    <div class="buttons hiddenElements">
+    <div class="buttons hiddenElement">
         <button class="btn0">A</button>
         <button class="btn1">B</button>
         <button class="btn2">C</button>
@@ -42,7 +42,7 @@
     document.querySelector(".usernameSubmit").addEventListener('click', ()=>{
         let myUsername = document.querySelector(".userName").value;
         buttonsDiv.classList.remove("hiddenElements");
-        document.querySelector(".setUsername").classList.add("hiddenElements");
+        document.querySelector(".setUsername").classList.add("hiddenElement");
         socket.emit("setUsername", {"username": myUsername, "id": localStorage.getItem("id")});
         myUsername = "";
     });
@@ -53,6 +53,9 @@
 
     //Po otrzymaniu od widoku komputera nowego pytania wykonuje się ta funckaj
     socket.on('nextQuestion', function (data) {
+        if(buttonsDiv.classList.contains("hiddenElement")){
+            buttonsDiv.classList.remove("hiddenElement")
+        }
         globalQuestionsData = data;
         answered = false; // Po otrzymaniu nowego pytania odblokuj możliwość klikania
         for (let i = 0; i < 4; i++) {
@@ -62,6 +65,10 @@
             actualButton.innerText = data["base"][data["questionId"]]["answers"][i];
         }
     });
+
+    socket.on("endTime", function(){
+        buttonsDiv.classList.add("hiddenElement")
+    })
 
     if (buttonsDiv) {
         var buttons = buttonsDiv.querySelectorAll("button");

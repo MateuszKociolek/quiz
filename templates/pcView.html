@@ -23,10 +23,9 @@
         <button class="nextQuestionButton hiddenElement">Next Question</button>
         <button class="restartButton hiddenElement">Restart Quiz</button>
         <p class="quest hiddenElement" style="font-size: xx-large;">LET'S GO</p>
-            <!-- <div id="myProgress">
-                <div id="myBar"></div>
-            </div>
-            <button onclick="move(5)">Click</button> -->
+        <div class="myProgress hiddenElement">
+            <div id="myBar"></div>
+        </div>
         <div class="leaderBoard">
         </div>
     </div>
@@ -37,11 +36,12 @@
     }
 </style>
 <script>
-    let socket = io.connect("http://" + document.domain + ":" + location.port);
+    var socket = io.connect("http://" + document.domain + ":" + location.port);
     let questionButton = document.querySelector(".startQuizButton");
     let nextQuestionButton = document.querySelector(".nextQuestionButton");
     let questionIndex = 0;
     let questionList = {};
+    let progressBarDiv = document.querySelector(".myProgress")
 
     questionButton.addEventListener('click', () => {
         console.log("Start Quiz!");
@@ -75,9 +75,11 @@
 
     nextQuestionButton.addEventListener("click", () => {
         if (questionIndex < questionList.length) {
+            move(10);
             displayQuestion(questionList[questionIndex]["question"]);
             socket.emit("nextQuestion", { "id": questionIndex });
             questionIndex++;
+            // progressBarDiv.classList.add("hiddenElement")
         } else {
             displayQuestion("Koniec Quizu!");
             socket.emit("end")

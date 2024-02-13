@@ -26,7 +26,7 @@ button {
     margin-bottom: 10px;
 }
 
-.hiddenElements{
+.hiddenElement{
     visibility: hidden;
     height: 0px;
 }
