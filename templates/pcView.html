@@ -10,6 +10,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/stylePc.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/globalNav.css') }}">
+    <script src="{{ url_for('static', filename='js/taskBar.js') }}" defer></script>
 </head>
 
 <body>
@@ -22,6 +23,10 @@
         <button class="nextQuestionButton hiddenElement">Next Question</button>
         <button class="restartButton hiddenElement">Restart Quiz</button>
         <p class="quest hiddenElement" style="font-size: xx-large;">LET'S GO</p>
+            <!-- <div id="myProgress">
+                <div id="myBar"></div>
+            </div>
+            <button onclick="move(5)">Click</button> -->
         <div class="leaderBoard">
         </div>
     </div>
